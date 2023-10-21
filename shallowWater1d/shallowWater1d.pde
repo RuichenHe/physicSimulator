@@ -1,6 +1,10 @@
 //1D Shallow Water
 //Ruichen He <he000239@umn.edu>
+import ddf.minim.*;
+import ddf.minim.ugens.*;
 
+Minim minim;
+AudioPlayer player;
 //Simulation setup
 float x_total_length = 1000; //1000m
 
@@ -10,7 +14,7 @@ static int n = 50;
 float dx = x_total_length/n;
 float dy = 40;
 float maxLength = 20;
-float drawHeight = 400;
+float drawHeight = 300;
 float heightThreshold = 0.1;
 float g = 10; //10m/s^2
 float h[] = new float[n];
@@ -123,6 +127,9 @@ void setup(){
   bgImage = loadImage("harbor.png");
   bgImage.resize(width, height);
   //Initial tepmapture distribution (linear heat ramp from left to right)
+  minim = new Minim(this);
+  player = minim.loadFile("Atlantic.mp3");
+  
   init();
 }
 
@@ -221,9 +228,11 @@ void draw() {
 void keyPressed(){
   if (key == 'r'){
     println("Resetting Simulation");
+    player.loop();  // This will play the music in a loop
     init();
   }
   else {
     paused = !paused;
+    player.loop();  // This will play the music in a loop
   }
 }

@@ -4,12 +4,13 @@
 //Simulation setup
 float x_total_length = 1000; //1000m
 
-
-static int n = 40;
+color bottomColor = color(0, 0, 139, 240);  // Dark blue
+color topColor = color(135, 206, 235, 240); // Bright blue
+static int n = 50;
 float dx = x_total_length/n;
 float dy = 40;
 float maxLength = 20;
-float drawHeight = 100;
+float drawHeight = 400;
 float heightThreshold = 0.1;
 float g = 10; //10m/s^2
 float h[] = new float[n];
@@ -25,6 +26,11 @@ float temp2;
 String windowTitle = "1D Shallow Water Simulation";
 boolean paused = true;
 String style = "2";
+
+
+PImage bgImage;
+
+
 void init(){
   //Setup init condition
   //
@@ -113,7 +119,9 @@ void colorByTemp(float t) {
 }
 
 void setup(){
-  size(1200, 600);
+  size(1000, 600, P3D);
+  bgImage = loadImage("harbor.png");
+  bgImage.resize(width, height);
   //Initial tepmapture distribution (linear heat ramp from left to right)
   init();
 }
@@ -172,7 +180,7 @@ void update(float dt){
 }
 
 void draw() {
-  background(200,200,200);
+  background(bgImage);
   
   float dt = 0.01;
   for (int i = 0; i < 20; i++){
@@ -181,16 +189,17 @@ void draw() {
     
   //Draw Heat
   fill(0);
-  text("Height:", 22, 305);
   noStroke();
   //println(h);
   for (int i = 0; i < n; i++){
     colorByTemp(h[i]/maxLength);
     pushMatrix();
-    translate(100+dx*i,300+0);
-    beginShape();
+    translate(dx/2+dx*i,height-5);
+    beginShape(QUADS);
+    fill(topColor);  
     vertex(-dx/2, -dy/2 - h[i]/maxLength * drawHeight);
     vertex(dx/2, -dy/2 - h[i]/maxLength * drawHeight);
+    fill(bottomColor);  
     vertex(dx/2, dy/2);
     vertex(-dx/2, dy/2);
     endShape();
@@ -198,48 +207,10 @@ void draw() {
   }
   noFill();
   stroke(1);
-  //rect(100-dx/2,300-dy/2,n*dx,dy);
-  //println("x", 100-dx/2);
-  //println("y", 100-dy/2);
   
   
-  fill(0);
-  text("dh/dt:", 22, 405);
-  noStroke();
-  for (int i = 0; i < n; i++){
-    redBlue(4*dhdt[i]);
-    pushMatrix();
-    translate(100+dx*i,400+0);
-    beginShape();
-    vertex(-dx/2, -dy/2);
-    vertex(dx/2, -dy/2);
-    vertex(dx/2, dy/2);
-    vertex(-dx/2, dy/2);
-    endShape();
-    popMatrix();
-  }
-  noFill();
-  stroke(1);
-  rect(100-dx/2,400-dy/2,n*dx,dy);
   
-  fill(0);
-  text("dhu/dt:", 22, 505);
-  noStroke();
-  for (int i = 0; i < n; i++){
-    redBlue(4*dhudt[i]);
-    pushMatrix();
-    translate(100+dx*i,500+0);
-    beginShape();
-    vertex(-dx/2, -dy/2);
-    vertex(dx/2, -dy/2);
-    vertex(dx/2, dy/2);
-    vertex(-dx/2, dy/2);
-    endShape();
-    popMatrix();
-  }
-  noFill();
-  stroke(1);
-  rect(100-dx/2,500-dy/2,n*dx,dy);
+  
   
   if (paused)
     surface.setTitle(windowTitle + " [PAUSED]");

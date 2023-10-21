@@ -31,9 +31,9 @@ class Camera
   void Update(float dt)
   {
     theta += turnSpeed * ( negativeTurn.x + positiveTurn.x)*dt;
-    println(position);
-    println(theta);
-    println(phi);
+    //println(position);
+    //println(theta);
+    //println(phi);
     // cap the rotation about the X axis to be less than 90 degrees to avoid gimble lock
     float maxAngleInRadians = 85 * PI / 180;
     phi = min( maxAngleInRadians, max( -maxAngleInRadians, phi + turnSpeed * ( negativeTurn.y + positiveTurn.y ) * dt ) );

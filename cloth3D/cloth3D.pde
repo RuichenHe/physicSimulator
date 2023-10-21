@@ -44,7 +44,8 @@ int mass = 1; // This can be moved to surfaces.txt in the future, when we want t
 Vec3 floor_pos = new Vec3(0, 10, 0);
 boolean mouseIsPressed = false;
 int chosenNodeId = -1;
-
+Vec2 mousePressedPos;
+int baseTransparency = 255;
 void setup()
 {
   output_path = sketchPath("") + "log_substeps_" + sub_steps + "_relaxation_" + relaxation_steps + ".txt";
@@ -77,6 +78,10 @@ void setup()
       int link_id = int(lineParts[0]);
       int node1_id = int(lineParts[1]);
       int node2_id = int(lineParts[2]);
+      Node n1 = nodeMap.get(node1_id);
+      n1.link_id_list.add(link_id);
+      Node n2 = nodeMap.get(node2_id);
+      n2.link_id_list.add(link_id);
       float link_length = float(lineParts[3]);
       linkMap.put(link_id, new Link(link_id, node1_id, node2_id, link_length));
     }
@@ -161,7 +166,7 @@ void update_physics(float dt){
   }
   
   for (Node n : nodeMap.values()) {
-    if ("Node".equals(n.type)) {
+    if ("Node".equals(n.type) || "BaseNode".equals(n.type)) {
         n.last_pos = n.pos;
         n.vel = n.vel.plus(n.air_drag_a.times(dt));
         //println(n.air_drag_a);
@@ -266,7 +271,7 @@ int checkChosenNode(){
     boolean isIntersect = rayNodeIntersect(cameraPos, mouseDir, nodePos, 0.03  *  scene_scale, intersection);
     if (isIntersect){
       println("Choose a node");
-      println(intersection.minus(cameraPos).length());
+      //println(intersection.minus(cameraPos).length());
       float currentDis = intersection.minus(cameraPos).length();
       if (intersection.minus(cameraPos).length() < minDis){
         minDis = currentDis;
@@ -305,25 +310,45 @@ void keyPressed()
     }
     paused = true;
   }
+  if (key == 'z') {
+    WITHAIRDRAG  = !WITHAIRDRAG ;
+  }
 }
 void mousePressed(){
+  float mx = mouseX / (float) width;
+  float my = mouseY / (float) height;
+  mousePressedPos = new Vec2(mx, my);
   chosenNodeId = checkChosenNode();
   if (chosenNodeId > -1){
     Node n = nodeMap.get(chosenNodeId);
-    if ("Node".equals(n.type)){
-      fill(240, 20, 0);
+    if ("Node".equals(n.type) || "BaseNode".equals(n.type)){
       n.temp_init_pos = n.pos;
       n.type = "Selected";
-    } else if ("Base".equals(n.type)){
-      fill(10, 10, 0);
-    }
-    noStroke();           // No outline for the sphere
-    pushMatrix();
-    translate(n.pos.x * scene_scale, n.pos.y * scene_scale, n.pos.z * scene_scale);
-    sphere( 0.03  *  scene_scale);
-    popMatrix();
+    } 
   }
   mouseIsPressed = true;
+  drawSelectedNode();
+}
+
+void mouseDragged(){
+  float mx = mouseX / (float) width;
+  float my = mouseY / (float) height;
+  Vec2 mouseCurrentPos = new Vec2(mx, my);
+  float mouseMoveDis = mouseCurrentPos.minus(mousePressedPos).length();
+  //println(mouseMoveDis);
+  if (chosenNodeId > -1){
+    Node n = nodeMap.get(chosenNodeId);
+    if ("Base".equals(n.type)){
+      baseTransparency = max(255 - int(0.8 * min(mouseMoveDis / 0.1 * 255, 255)), 0);
+      if (baseTransparency < 55){
+        n.type = "BaseNode";
+        mouseIsPressed = false;
+        chosenNodeId = -1;
+        baseTransparency = 255;
+      }
+    }
+  }
+  drawSelectedNode();
 }
 
 void mouseReleased(){
@@ -335,12 +360,38 @@ void mouseReleased(){
   }
   mouseIsPressed = false;
   chosenNodeId = -1;
+  baseTransparency = 255;
 }
 
 void keyReleased()
 {
   camera.HandleKeyReleased();
 }
+
+void drawSelectedNode(){
+  if (chosenNodeId > -1){
+    Node n = nodeMap.get(chosenNodeId);
+    if ("Node".equals(n.type) || "Selected".equals(n.type)){
+      fill(240, 20, 0);
+    } else if ("Base".equals(n.type)){
+      fill(255, 200, 255, baseTransparency);
+      //println(baseTransparency);
+    }
+    
+    noStroke();           // No outline for the sphere
+    pushMatrix();
+    translate(n.pos.x * scene_scale, n.pos.y * scene_scale, n.pos.z * scene_scale);
+    if ("Base".equals(n.type)){
+      sphere( 0.03  *  scene_scale * (1 + float(255 - baseTransparency)/255 * 4));
+    }
+    else{
+      sphere( 0.03  *  scene_scale);
+    }
+    
+    popMatrix();
+  }
+}
+
 
 void draw() {
   background(0);
@@ -385,20 +436,8 @@ void draw() {
       sphere( 0.03  *  scene_scale);
       popMatrix();
     }
-  } else if (chosenNodeId > -1){
-    Node n = nodeMap.get(chosenNodeId);
-    if ("Node".equals(n.type)){
-      fill(240, 20, 0);
-    } else if ("Base".equals(n.type)){
-      fill(10, 10, 0);
-    }
-    
-    noStroke();           // No outline for the sphere
-    pushMatrix();
-    translate(n.pos.x * scene_scale, n.pos.y * scene_scale, n.pos.z * scene_scale);
-    sphere( 0.03  *  scene_scale);
-    popMatrix();
   }
+  drawSelectedNode();
   
     
     

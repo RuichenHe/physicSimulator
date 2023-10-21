@@ -14,6 +14,7 @@ class Camera
     moveSpeed     = 50;
     turnSpeed     = 1.57; // radians/sec
     boostSpeed    = 10;  // extra speed boost for when you press shift
+    mouseDir      = new PVector( 0, 0, -1 ); // direction of mouse ray
     
     // dont need to change these
     shiftPressed = false;
@@ -54,6 +55,25 @@ class Camera
     camera( position.x, position.y, position.z,
             position.x + forwardDir.x, position.y + forwardDir.y, position.z + forwardDir.z,
             upDir.x, upDir.y, upDir.z );
+            
+    float mx = mouseX / (float) width;
+    float my = mouseY / (float) height;
+    PVector mousePos = new PVector();
+    mousePos.set( forwardDir );
+    mousePos.mult( nearPlane );
+    mousePos.add( position );
+    mousePos.add( PVector.mult( upDir, ( my - 0.5 ) * nearPlane * tan( fovy / 2 ) * 2 ) );
+    mousePos.add( PVector.mult( rightDir, ( mx - 0.5 ) * nearPlane * aspectRatio * tan( fovy / 2 ) * 2 ) );
+    mouseDir = new PVector();
+    mouseDir.set( mousePos );
+    mouseDir.sub( position );
+    mouseDir.normalize();
+    
+    pushMatrix();
+    translate( mousePos.x, mousePos.y, mousePos.z );
+    fill(120,120,120);
+    box( 0.002 );
+    popMatrix();
   }
   
   // only need to change if you want difrent keys for the controls
@@ -115,6 +135,7 @@ class Camera
   float moveSpeed;
   float turnSpeed;
   float boostSpeed;
+  PVector mouseDir;
   
   // probably don't need / want to change any of the below variables
   float fovy;

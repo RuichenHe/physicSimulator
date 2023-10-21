@@ -22,7 +22,6 @@ String linkFile = "links_cloth.txt";
 String surfaceFile = "tri_surface_cloth.txt";
 String outputFile = "temp.txt";
 
-
 // Physics Settig
 Vec3 gravity = new Vec3(0, 10, 0);
 Vec3 v_air = new Vec3(0, 0, 0);
@@ -43,6 +42,8 @@ String output_path;
 //World setting
 int mass = 1; // This can be moved to surfaces.txt in the future, when we want to do more complicated physics simulation
 Vec3 floor_pos = new Vec3(0, 10, 0);
+boolean mouseIsPressed = false;
+int chosenNodeId = -1;
 
 void setup()
 {
@@ -116,6 +117,26 @@ void setup()
   //Init base and node
   
 }
+
+boolean rayNodeIntersect(Vec3 rayOrigin, Vec3 rayDir, Vec3 nodeCenter, float nodeRadius, Vec3 intersection){
+  Vec3 oc = rayOrigin.minus(nodeCenter);
+  float a = dot(rayDir, rayDir);
+  float b = 2 * dot(oc, rayDir);
+  float c = dot(oc, oc) - nodeRadius * nodeRadius;
+  float discriminant = b*b - 4*a*c;
+  if (discriminant < 0){
+    return false;
+  }
+  else{
+    float t = (-b-sqrt(discriminant)) / (2*a);
+    Vec3 temp = rayOrigin.plus(rayDir.times(t));
+    intersection.x = temp.x;
+    intersection.y = temp.y;
+    intersection.z = temp.z;
+    return true;
+  }
+}
+
 void calculate_air_drag(){
   for (Surface s : surfaceMap.values()){
      Node node1 = nodeMap.get(s.node1_id);
@@ -192,6 +213,11 @@ void update_physics(float dt){
         n.pos = n.init_pos;
       }
     }
+    for (Node n : nodeMap.values()){
+      if ("Selected".equals(n.type)){
+        n.pos = n.temp_init_pos;
+      }
+    }
   }
   // Update the velocities (PBD)
   for (Node n : nodeMap.values()){
@@ -229,7 +255,27 @@ float total_length_error(){
 boolean paused = true;
 float time = 0;
 
-
+int checkChosenNode(){
+  Vec3 cameraPos = new Vec3(camera.position.x, camera.position.y, camera.position.z);
+  Vec3 mouseDir = new Vec3(camera.mouseDir.x, camera.mouseDir.y, camera.mouseDir.z);
+  float minDis = Float.MAX_VALUE;
+  int nodeId = -1;
+  for (Node n : nodeMap.values()) {
+    Vec3 intersection = new Vec3(0, 0, 0);
+    Vec3 nodePos = new Vec3(n.pos.x * scene_scale, n.pos.y * scene_scale, n.pos.z * scene_scale);
+    boolean isIntersect = rayNodeIntersect(cameraPos, mouseDir, nodePos, 0.03  *  scene_scale, intersection);
+    if (isIntersect){
+      println("Choose a node");
+      println(intersection.minus(cameraPos).length());
+      float currentDis = intersection.minus(cameraPos).length();
+      if (intersection.minus(cameraPos).length() < minDis){
+        minDis = currentDis;
+        nodeId = n.node_id;
+      }
+    }
+  } 
+  return nodeId;
+}
 
 
 
@@ -259,6 +305,36 @@ void keyPressed()
     }
     paused = true;
   }
+}
+void mousePressed(){
+  chosenNodeId = checkChosenNode();
+  if (chosenNodeId > -1){
+    Node n = nodeMap.get(chosenNodeId);
+    if ("Node".equals(n.type)){
+      fill(240, 20, 0);
+      n.temp_init_pos = n.pos;
+      n.type = "Selected";
+    } else if ("Base".equals(n.type)){
+      fill(10, 10, 0);
+    }
+    noStroke();           // No outline for the sphere
+    pushMatrix();
+    translate(n.pos.x * scene_scale, n.pos.y * scene_scale, n.pos.z * scene_scale);
+    sphere( 0.03  *  scene_scale);
+    popMatrix();
+  }
+  mouseIsPressed = true;
+}
+
+void mouseReleased(){
+  if (chosenNodeId > -1){
+    Node n = nodeMap.get(chosenNodeId);
+    if ("Selected".equals(n.type)){
+      n.type = "Node";
+    }
+  }
+  mouseIsPressed = false;
+  chosenNodeId = -1;
 }
 
 void keyReleased()
@@ -298,7 +374,34 @@ void draw() {
     }
     //println(time, total_energy, total_length_error);
   }
+  if (mouseIsPressed == false){
+    int nodeId = checkChosenNode();
+    if (nodeId > -1){
+      Node n = nodeMap.get(nodeId);
+      fill(20, 240, 0);
+      noStroke();           // No outline for the sphere
+      pushMatrix();
+      translate(n.pos.x * scene_scale, n.pos.y * scene_scale, n.pos.z * scene_scale);
+      sphere( 0.03  *  scene_scale);
+      popMatrix();
+    }
+  } else if (chosenNodeId > -1){
+    Node n = nodeMap.get(chosenNodeId);
+    if ("Node".equals(n.type)){
+      fill(240, 20, 0);
+    } else if ("Base".equals(n.type)){
+      fill(10, 10, 0);
+    }
+    
+    noStroke();           // No outline for the sphere
+    pushMatrix();
+    translate(n.pos.x * scene_scale, n.pos.y * scene_scale, n.pos.z * scene_scale);
+    sphere( 0.03  *  scene_scale);
+    popMatrix();
+  }
   
+    
+    
   if (DEBUG){
     //Render the nodes
     for (Node n : nodeMap.values()) {

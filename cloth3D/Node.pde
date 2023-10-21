@@ -4,6 +4,7 @@ class Node {
   Vec3 vel;
   Vec3 last_pos;
   Vec3 init_pos;
+  Vec3 temp_init_pos; //Set the value when the node is selected
   String type;
   Vec3 air_drag_a;
   Node(Vec3 pos, String type, int node_id) {

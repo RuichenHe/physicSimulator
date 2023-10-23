@@ -20,8 +20,9 @@ In the first demo gif, the following features have been presented (80):
 
 <img src="{{ "doc/cloth3D_demo2.gif" | prepend: site.baseurl | prepend: site.url}}" alt="cloth3D_demo2" />
 
-In the second demo gif, I compare the simulation with a real world squere cloth movement to demonstrate the realistice speed of the simulation (5):
-+ **Realistic Speed**(5)
+In the second demo, I show the interaction in the simulation. There are two ways of interaction. User can click the nodes to change the moveable nodes into Base type temporaryly (during the clicking of the mouse). User can also click the Base nodes (indicated by white visual balls), and drag it to a certain degree, then the Base node will be destryed, and transfer to a movable Node type. This demo demonstrate the following features (5):
++ **User Interaction**(5)
+
 ## Demo3
 ![](https://github.com/RuichenHe/physicSimulator/blob/main/doc/cloth3D_demo3.gif)
 
@@ -29,8 +30,9 @@ In the second demo gif, I compare the simulation with a real world squere cloth 
 In the third demo gif, I enable the air drag force. By comparing with Demo1, it is clear to see the impact of the air drag force, reducing the speed of the falling cloth (10):
 + **Air Drag for Cloth**(10)
 ## Demo4
-In the 4th demo, I show the interaction in the simulation. There are two ways of interaction. User can click the nodes to change the moveable nodes into Base type temporaryly (during the clicking of the mouse). User can also click the Base nodes (indicated by white visual balls), and drag it to a certain degree, then the Base node will be destryed, and transfer to a movable Node type. This demo demonstrate the following features (5):
-+ **User Interaction**(5)
+In the 4th demo gif, I compare the simulation with a real world squere cloth movement to demonstrate the realistice speed of the simulation (5):
++ **Realistic Speed**(5)
+
 
 # shallowWater1d
 shallowWater 1d is a simulation of 1D shallow water. In the scene, a 1D water with intial surface height differences representing a dam break scene has been simulated with midpoint integration method. To make the scene realistic, a 2D pixel island sea art scene has been created using ChatGPT4 + DALL.E3. In addition, each 1d block of the water is rendered based on its height. The left and right boundary are set as 

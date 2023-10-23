@@ -27,7 +27,7 @@ reflective. To start the simulation, press `Space`. To restart the simulation, p
 ## Demo1 **(Art Contest)**
 ![](https://github.com/RuichenHe/physicSimulator/blob/main/doc/shallowWater1D.gif)
 
-<img src="{{ "doc/shallowWater1D.gif" | prepend: site.baseurl | prepend: site.url}}" alt="shallowWater1D" />
+<img src="{{ "doc/demo1.gif" | prepend: site.baseurl | prepend: site.url}}" alt="demo1" />
 
 In this demo, I present the 1D shallow water simulation with a dam breaking initial setup, the following features have been presented (30):
 + **Flow smoothly**

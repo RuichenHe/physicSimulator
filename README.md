@@ -26,7 +26,9 @@ shallowWater 1d is a simulation of 1D shallow water. In the scene, a 1D water wi
 reflective. To start the simulation, press `Space`. To restart the simulation, press `r`. 
 ## Demo1 **(Art Contest)**
 ![](https://github.com/RuichenHe/physicSimulator/blob/main/doc/shallowWater1D.gif)
+
 <img src="{{ "doc/shallowWater1D.gif" | prepend: site.baseurl | prepend: site.url}}" alt="demo2" />
+
 In this demo, I present the 1D shallow water simulation with a dam breaking initial setup, the following features have been presented (30):
 + **Flow smoothly**
 + **Execute in real-time**

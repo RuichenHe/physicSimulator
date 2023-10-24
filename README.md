@@ -4,7 +4,7 @@ A project for *CSCI 5611: Animation and Planning in Games*. **physicSimulator** 
 ## Author: *Ruichen He*
 
 # cloth3D
-cloth3D is a 3D cloth simulation. In the scene, a squere cloth (1.5m by 1.5m) is simulated and rendered. 6x6 mesh is used to discritize the cloth plane. Hozizontal and vertical edges for each mesh block is set to be a link, which has a pre-defined length constraint. Next to the cloth, there is a ball rendered as well, which will be served as a collision object later in the simulation. Initially, the cloth is hanging horizontally without any motion.Two corner (along same edge) is set to be Base type,i.e. no movement. All the other nodes of the mesh is set to be moveable during the simulation. 
+cloth3D is a 3D cloth simulation. The code structure is extended from HW 2. In the scene, a squere cloth (1.5m by 1.5m) is simulated and rendered. 6x6 mesh is used to discritize the cloth plane. Hozizontal and vertical edges for each mesh block is set to be a link, which has a pre-defined length constraint. Next to the cloth, there is a ball rendered as well, which will be served as a collision object later in the simulation. Initially, the cloth is hanging horizontally without any motion.Two corner (along same edge) is set to be Base type,i.e. no movement. All the other nodes of the mesh is set to be moveable during the simulation. 
 ## Demo1
 ![](https://github.com/RuichenHe/physicSimulator/blob/main/doc/cloth3D_demo1.gif)
 
@@ -38,7 +38,7 @@ In the 4th demo gif, I compare the simulation with a real world squere cloth mov
 <img src="{{ "doc/cloth3D_demo4.gif" | prepend: site.baseurl | prepend: site.url}}" alt="cloth3D_demo4" />
 
 # [shallowWater1d](https://youtu.be/GQGvUIcUh0k)
-shallowWater 1d is a simulation of 1D shallow water. In the scene, a 1D water with intial surface height differences representing a dam break scene has been simulated with midpoint integration method. To make the scene realistic, a 2D pixel island sea art scene has been created using ChatGPT4 + DALL.E3. In addition, each 1d block of the water is rendered based on its height. The left and right boundary are set as 
+shallowWater 1d is a simulation of 1D shallow water. The code structure is extended from the after-class activity ---- HeataFlow_Starter. In the scene, a 1D water with intial surface height differences representing a dam break scene has been simulated with midpoint integration method. To make the scene realistic, a 2D pixel island sea art scene has been created using ChatGPT4 + DALL.E3. In addition, each 1d block of the water is rendered based on its height. The left and right boundary are set as 
 reflective. To start the simulation, press `Space`. To restart the simulation, press `r`. 
 ## Demo1 **(Art Contest)**
 ![](https://github.com/RuichenHe/physicSimulator/blob/main/doc/shallowWater1D.gif)

@@ -27,12 +27,15 @@ In the second demo, I show the interaction in the simulation. There are two ways
 ![](https://github.com/RuichenHe/physicSimulator/blob/main/doc/cloth3D_demo3.gif)
 
 <img src="{{ "doc/cloth3D_demo3.gif" | prepend: site.baseurl | prepend: site.url}}" alt="cloth3D_demo3" />
+
 In the third demo gif, I enable the air drag force. By comparing with Demo1, it is clear to see the impact of the air drag force, reducing the speed of the falling cloth (10):
 + **Air Drag for Cloth**(10)
 ## Demo4
 In the 4th demo gif, I compare the simulation with a real world squere cloth movement to demonstrate the realistice speed of the simulation (5):
 + **Realistic Speed**(5)
+![](https://github.com/RuichenHe/physicSimulator/blob/main/doc/cloth3D_demo4.gif)
 
+<img src="{{ "doc/cloth3D_demo4.gif" | prepend: site.baseurl | prepend: site.url}}" alt="cloth3D_demo4" />
 
 # shallowWater1d
 shallowWater 1d is a simulation of 1D shallow water. In the scene, a 1D water with intial surface height differences representing a dam break scene has been simulated with midpoint integration method. To make the scene realistic, a 2D pixel island sea art scene has been created using ChatGPT4 + DALL.E3. In addition, each 1d block of the water is rendered based on its height. The left and right boundary are set as 

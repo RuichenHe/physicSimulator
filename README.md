@@ -54,5 +54,14 @@ In this demo, I present the 1D shallow water simulation with a dam breaking init
   
 [Youtube video](https://youtu.be/GQGvUIcUh0k) version of this demo also has a music played during the simulation. 
 
+# Future Work
+
+Due to the limit of time, only a few intersting simulations have been conducted. Future works include:
++ Extend the simulation of Shallow Water to 2D
++ Add a rigid body in the Shallow Water simulation
++ 2D SPH Simulation
++ Implement ripping/tearing in the cloth simulation
++ Implement self-collision detection in the cloth simulation
+
 # Code
 The source code is available to download [here](https://github.com/RuichenHe/physicSimulator/)

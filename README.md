@@ -37,7 +37,7 @@ In the 4th demo gif, I compare the simulation with a real world squere cloth mov
 
 <img src="{{ "doc/cloth3D_demo4.gif" | prepend: site.baseurl | prepend: site.url}}" alt="cloth3D_demo4" />
 
-# shallowWater1d
+# [shallowWater1d](https://youtu.be/GQGvUIcUh0k)
 shallowWater 1d is a simulation of 1D shallow water. In the scene, a 1D water with intial surface height differences representing a dam break scene has been simulated with midpoint integration method. To make the scene realistic, a 2D pixel island sea art scene has been created using ChatGPT4 + DALL.E3. In addition, each 1d block of the water is rendered based on its height. The left and right boundary are set as 
 reflective. To start the simulation, press `Space`. To restart the simulation, press `r`. 
 ## Demo1 **(Art Contest)**
@@ -50,6 +50,7 @@ In this demo, I present the 1D shallow water simulation with a dam breaking init
 + **Execute in real-time**
 + **Rendered to look like actual fluid**
 + **Placed in a beach scene**
++ 
 [Youtube video](https://youtu.be/GQGvUIcUh0k) version of this demo also has a music played during the simulation. 
 
 # Code

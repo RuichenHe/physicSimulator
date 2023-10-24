@@ -15,6 +15,7 @@ In the first demo gif, the following features have been presented (80):
 + **Cloth Simulation**(20)
 + **3D Simulation**(10)
 + **High-quality Rendering**(5)
+  
 ## Demo2
 ![](https://github.com/RuichenHe/physicSimulator/blob/main/doc/cloth3D_demo2.gif)
 
@@ -30,9 +31,11 @@ In the second demo, I show the interaction in the simulation. There are two ways
 
 In the third demo gif, I enable the air drag force. By comparing with Demo1, it is clear to see the impact of the air drag force, reducing the speed of the falling cloth (10):
 + **Air Drag for Cloth**(10)
+  
 ## Demo4
 In the 4th demo gif, I compare the simulation with a real world squere cloth movement to demonstrate the realistice speed of the simulation (5):
 + **Realistic Speed**(5)
+  
 ![](https://github.com/RuichenHe/physicSimulator/blob/main/doc/cloth3D_demo4.gif)
 
 <img src="{{ "doc/cloth3D_demo4.gif" | prepend: site.baseurl | prepend: site.url}}" alt="cloth3D_demo4" />

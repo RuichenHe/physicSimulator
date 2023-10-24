@@ -50,7 +50,8 @@ In this demo, I present the 1D shallow water simulation with a dam breaking init
 + **Execute in real-time**
 + **Rendered to look like actual fluid**
 + **Placed in a beach scene**
-+ 
+
+  
 [Youtube video](https://youtu.be/GQGvUIcUh0k) version of this demo also has a music played during the simulation. 
 
 # Code

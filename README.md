@@ -37,6 +37,10 @@ In the 4th demo gif, I compare the simulation with a real world squere cloth mov
 
 <img src="{{ "doc/cloth3D_demo4.gif" | prepend: site.baseurl | prepend: site.url}}" alt="cloth3D_demo4" />
 
+## Difficulties
+One of the difficulties I face during the implementation is how to handle different component effectively, from node, to link, to surface. Instead of using for loops to initilize nodes and links, I use a similar text loading mechanism I used in the previous cyberBall implementation to effectively store/load the geometry info in several txt file. By this way, my current code can be easily extend to more complicated cloth simulation. 
+
+
 # [shallowWater1d](https://youtu.be/GQGvUIcUh0k)
 shallowWater 1d is a simulation of 1D shallow water. The code structure is extended from the after-class activity ---- HeataFlow_Starter. In the scene, a 1D water with intial surface height differences representing a dam break scene has been simulated with midpoint integration method. To make the scene realistic, a 2D pixel island sea art scene has been created using ChatGPT4 + DALL.E3. In addition, each 1d block of the water is rendered based on its height. The left and right boundary are set as 
 reflective. To start the simulation, press `Space`. To restart the simulation, press `r`. 
@@ -53,6 +57,9 @@ In this demo, I present the 1D shallow water simulation with a dam breaking init
 
   
 [Youtube video](https://youtu.be/GQGvUIcUh0k) version of this demo also has a music played during the simulation. 
+
+## Difficulties
+During the simulation, I had some issues related to how to set up the midpoint integration method. After try and false, I reallize the key is to calculate the midpoint every iteration directly from the hu and h field, instead of calculate from previous step's midpoint result (this will lead to instability, and fail to converge).
 
 # Future Work
 

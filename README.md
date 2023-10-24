@@ -33,14 +33,14 @@ In the third demo gif, I enable the air drag force. By comparing with Demo1, it 
 + **Air Drag for Cloth**(10)
   
 ## Demo4
-In the 4th demo gif, I compare the simulation with a real world squere cloth movement to demonstrate the realistice speed of the simulation (5):
-
-+ **Realistic Speed**(5)
-  
 ![](https://github.com/RuichenHe/physicSimulator/blob/main/doc/cloth3D_demo4.gif)
 
 <img src="{{ "doc/cloth3D_demo4.gif" | prepend: site.baseurl | prepend: site.url}}" alt="cloth3D_demo4" />
 
+In the 4th demo gif, I compare the simulation with a real world squere cloth movement to demonstrate the realistice speed of the simulation (5):
+
++ **Realistic Speed**(5)
+  
 ## Difficulties
 One of the difficulties I face during the implementation is how to handle different component effectively, from node, to link, to surface. Instead of using for loops to initilize nodes and links, I use a similar text loading mechanism I used in the previous cyberBall implementation to effectively store/load the geometry info in several txt file. By this way, my current code can be easily extend to more complicated cloth simulation. 
 

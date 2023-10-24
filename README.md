@@ -46,7 +46,7 @@ One of the difficulties I face during the implementation is how to handle differ
 
 
 # [shallowWater1d](https://github.com/RuichenHe/physicSimulator/tree/main/shallowWater1d)
-[*shallowWater 1d*](https://youtu.be/GQGvUIcUh0k) is a simulation of 1D shallow water. The code structure is extended from the after-class activity ---- HeataFlow_Starter. In the scene, a 1D water with intial surface height differences representing a dam break scene has been simulated with midpoint integration method. To make the scene realistic, a 2D pixel island sea art scene has been created using ChatGPT4 + DALL.E3. In addition, each 1d block of the water is rendered based on its height. The left and right boundary are set as 
+*[shallowWater 1d](https://youtu.be/GQGvUIcUh0k)* is a simulation of 1D shallow water. The code structure is extended from the after-class activity ---- HeataFlow_Starter. In the scene, a 1D water with intial surface height differences representing a dam break scene has been simulated with midpoint integration method. To make the scene realistic, a 2D pixel island sea art scene has been created using ChatGPT4 + DALL.E3. In addition, each 1d block of the water is rendered based on its height. The left and right boundary are set as 
 reflective. To start the simulation, press `Space`. To restart the simulation, press `r`. 
 ## Demo1 **(Art Contest)**
 ![](https://github.com/RuichenHe/physicSimulator/blob/main/doc/shallowWater1D.gif)
